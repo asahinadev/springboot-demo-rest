@@ -7,15 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import reactor.core.publisher.Mono;
+
 @RestController
 @RequestMapping("/")
 public class IndexController {
 
 	@GetMapping
-	public Map<String, String> doGet() {
+	public Mono<Map<String, String>> doGet() {
 		Map<String, String> result = new HashMap<>();
 		result.put("status", "OK");
-		return result;
+		return Mono.create(e -> e.success(result));
 	}
 
 }
